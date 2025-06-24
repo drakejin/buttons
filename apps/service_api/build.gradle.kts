@@ -3,7 +3,7 @@ plugins {
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
-    id("org.asciidoctor.jvm.convert") version "3.3.2"
+    id("com.epages.restdocs-api-spec") version "0.19.4"
 }
 
 dependencies {
@@ -16,6 +16,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // Swagger UI
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
     // 개발 도구
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -35,8 +38,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-// REST Docs 설정
-val snippetsDir by extra { file("build/generated-snippets") }
+val snippetsDir = file("build/generated-snippets")
 
 tasks {
     test {
