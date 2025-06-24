@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("org.asciidoctor.jvm.convert") version "3.3.2"
 }
 
 dependencies {
@@ -29,5 +30,17 @@ dependencies {
     // 테스트 의존성
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    testImplementation("com.epages:restdocs-api-spec-mockmvc:0.19.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+// REST Docs 설정
+val snippetsDir by extra { file("build/generated-snippets") }
+
+tasks {
+    test {
+        outputs.dir(snippetsDir)
+        systemProperty("org.springframework.restdocs.outputDir", snippetsDir)
+    }
 }
